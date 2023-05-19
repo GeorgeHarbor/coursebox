@@ -13,10 +13,6 @@ public static class ApplicationServiceExtension
         {
             var connectionString = config.GetValue<string>("ConnectionStrings:MongoDB");
             var databaseName = config.GetValue<string>("MongoDB:DatabaseName");
-            if (connectionString is null || databaseName is null)
-            {
-                throw new Exception("Ne radi");
-            }
             return new DataContext(connectionString, databaseName);
         });
         
