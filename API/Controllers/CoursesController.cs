@@ -15,4 +15,10 @@ public class CoursesController : BaseApiController
     {
         return await Mediator.Send(new List.Query());
     }
+
+    [HttpGet("{id}")]
+    public async Task<Course> Find(string id)
+    {
+        return await Mediator.Send(new Details.Query{Id = id});
+    }
 }
