@@ -15,4 +15,44 @@ public class Course
     [BsonElement("name")]
     [JsonPropertyName(("name"))]
     public string Name { get; set; } = null!;
+    
+    
+    [BsonElement("description")]
+    [JsonPropertyName(("description"))]
+    public string Description { get; set; } = null!;
+    
+    [BsonElement("duration")]
+    [JsonPropertyName(("duration"))]
+    public int Duration { get; set; }
+    
+    
+    [BsonElement("image_link")]
+    [JsonPropertyName(("image_link"))]
+    public string Image { get; set; } = null!;
+    
+    [BsonElement("instructors")]
+    [JsonPropertyName(("instructors"))]
+    public List<string>? Instructors { get; set; }
+    
+    [BsonElement("keywords")]
+    [JsonPropertyName("keywords")]
+    public List<string>? Keywords { get; set; }
+
+    [BsonElement("rating")]
+    [JsonPropertyName("rating")]
+    public double Rating { get; set; } 
+    
+    
+    [BsonElement("school")]
+    [BsonRepresentation(BsonType.ObjectId)]
+    [JsonPropertyName("school")]
+    public string School { get; set; } = null!;
+
+    [BsonElement("level")]
+    [JsonPropertyName("level")]
+    public string Level { get; set; } = null!;
+
+    [BsonElement("link")]
+    [JsonPropertyName("link")]
+    public string Link { get; set; } = null!;
 }
