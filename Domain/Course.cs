@@ -17,6 +17,7 @@ public class Course
     public string Name { get; set; } = null!;
 
     [BsonElement("description")]
+
     public string Description { get; set; } = null!;
 
     [BsonElement("duration")]
