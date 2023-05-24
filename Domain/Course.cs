@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using FluentValidation;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -37,7 +38,7 @@ public class Course
 
     [BsonElement("school")]
     [BsonRepresentation(BsonType.ObjectId)]
-    public ObjectId School { get; set; }
+    public string School { get; set; } = null!;
 
     [BsonElement("level")]
     public string Level { get; set; } = null!;
@@ -45,6 +46,22 @@ public class Course
     [BsonElement("link")]
     public string Link { get; set; } = null!;
 
+}
 
+public class CourseValidator : AbstractValidator<Course>
+{
+    public CourseValidator()
+    {
+        List<string> tezina = new List<string>() { "Beginner", "Intermediate", "Expert" };
 
+        RuleFor(course => course.Id).NotNull();
+        RuleFor(course => course.Name).NotNull();
+        RuleFor(course => course.Name).Length(0,60).WithMessage("Please entre the course name. The name must be under 60 characters.");
+        RuleFor(course => course.Instructors).NotNull().WithMessage("Please enter at least one instructor.");
+        RuleFor(course => course.Keywords).NotNull().WithMessage("Please enter at least one keyword.");
+        RuleFor(course => course.School).NotNull().WithMessage("Please enter a school.");
+        RuleFor(course => course.Level).NotNull();
+        RuleFor(course => course.Level).Must(course=>tezina.Contains(course)).WithMessage("Please only use: " + String.Join(",", tezina));
+        RuleFor(course => course.Link).NotNull().WithMessage("Please enter a valid link to the existing course.");
+    }
 }

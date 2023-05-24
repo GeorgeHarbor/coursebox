@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json.Serialization;
+using FluentValidation;
 
 namespace Domain
 {
@@ -18,7 +19,8 @@ namespace Domain
         public string Id { get; set; } = null!;
 
         [BsonElement("courses")]
-        public ObjectId[] Courses { get; set; } = null!;
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string[] Courses { get; set; } = null!;
 
         [BsonElement("description")]
         public string Description { get; set; }=null!;
@@ -29,5 +31,15 @@ namespace Domain
         [BsonElement("name")]
         [JsonPropertyName(("name"))]
         public string Name { get; set; }=null!;
+    }
+
+    public class SchoolValidator : AbstractValidator<School>
+    {
+        public SchoolValidator() {
+
+            RuleFor(school => school.Id).NotNull();
+            RuleFor(school => school.Name).NotNull().WithMessage("Please enter the name of the school.");
+
+        }
     }
 }

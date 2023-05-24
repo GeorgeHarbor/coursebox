@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FluentValidation;
 
 namespace Domain
 {
@@ -44,5 +45,26 @@ namespace Domain
         [BsonElement("username")]
         public string Username { get; set; }= null!;
 
+        [BsonElement("email")]
+
+        public string Email { get; set; } = null!;
+
     }
+    public class UserValidator : AbstractValidator<User>
+    {
+        public UserValidator()
+        {
+            RuleFor(user => user.Id).NotNull();
+            RuleFor(user => user.Interests).NotNull().WithMessage("Please enter at least one interest.");
+            RuleFor(user => user.Is_verified).NotNull();
+            RuleFor(user => user.Join_date).NotNull();
+            RuleFor(user => user.Password).NotNull().WithMessage("Please enter a valid password.");
+            RuleFor(user => user.Role).NotNull();
+            RuleFor(user => user.Username).NotNull();
+            RuleFor(user => user.Username).Length(0, 20).WithMessage("Please enter a valid username. Username must be under 20 characters.");
+            RuleFor(user => user.Email).NotNull();
+            RuleFor(user => user.Email).EmailAddress();
+        }
+    }
+
 }
