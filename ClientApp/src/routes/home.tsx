@@ -5,8 +5,12 @@ import { Testimonials } from '../components/Testimonials'
 import PopularCourses from '../components/PopularCourses/PopularCourses'
 import { Partners } from '../components/Partners/Partners'
 import CallToAction from '../components/CallToAction/CallToAction'
+import { Navigation } from '../components/Navigation'
+import { Footer } from '../components/Footer'
 
 export const Home = () => (
+  <>
+    <Navigation />
     <Box id="content">
       <Carousel />
       <CallToAction />
@@ -43,7 +47,7 @@ export const Home = () => (
         title: 'Title',
         text: 'Text'
       }, {
-        id: 1,
+        id: 5,
         image: {
           link: 'https://online-learning.harvard.edu/sites/default/files/styles/social_share/public/course/cs50x-original.jpg?itok=kR_JV8DW',
           alt: 'CS50 Introduction to Computer Science'
@@ -51,7 +55,7 @@ export const Home = () => (
         title: 'Title',
         text: 'Text'
       }, {
-        id: 2,
+        id: 6,
         image: {
           link: 'https://online-learning.harvard.edu/sites/default/files/styles/social_share/public/course/cs50x-original.jpg?itok=kR_JV8DW',
           alt: 'CS50 Introduction to Computer Science'
@@ -59,7 +63,7 @@ export const Home = () => (
         title: 'Title',
         text: 'Text'
       }, {
-        id: 3,
+        id: 7,
         image: {
           link: 'https://online-learning.harvard.edu/sites/default/files/styles/social_share/public/course/cs50x-original.jpg?itok=kR_JV8DW',
           alt: 'CS50 Introduction to Computer Science'
@@ -67,7 +71,7 @@ export const Home = () => (
         title: 'Title',
         text: 'Text'
       }, {
-        id: 4,
+        id: 8,
         image: {
           link: 'https://online-learning.harvard.edu/sites/default/files/styles/social_share/public/course/cs50x-original.jpg?itok=kR_JV8DW',
           alt: 'CS50 Introduction to Computer Science'
@@ -79,4 +83,6 @@ export const Home = () => (
       <Partners partners={[]}/>
       <Testimonials />
     </Box>
+    <Footer/>
+    </>
 )
