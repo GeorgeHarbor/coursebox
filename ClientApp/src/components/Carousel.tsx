@@ -7,7 +7,9 @@ import {
   Heading,
   Text,
   Container,
-  Button
+  Button,
+  DarkMode,
+  LightMode
 } from '@chakra-ui/react';
 // Here we have used react-icons package for the icons
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
@@ -83,73 +85,77 @@ export function Carousel() {
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
       />
       {/* Left Icon */}
-      <IconButton
-        aria-label="left-arrow"
-        variant="ghost"
-        position="absolute"
-        left={side}
-        top={top}
-        transform={'translate(0%, -50%)'}
-        zIndex={2}
-        backgroundColor='rgba(0,0,0,0.5)'
-        onClick={() => slider?.slickPrev()}
-        
-        >
-        <BiLeftArrowAlt size="40px" />
-      </IconButton>
-      {/* Right Icon */}
-      <IconButton
-        aria-label="right-arrow"
-        variant="ghost"
-        position="absolute"
-        right={side}
-        top={top}
-        transform={'translate(0%, -50%)'}
-        zIndex={2}
-        backgroundColor='rgba(0,0,0,0.5)'
-        onClick={() => slider?.slickNext()}>
-        <BiRightArrowAlt size="40px" />
-      </IconButton>
+      <DarkMode>
+        <IconButton
+          aria-label="left-arrow"
+          variant="ghost"
+          position="absolute"
+          left={side}
+          top={top}
+          transform={'translate(0%, -50%)'}
+          zIndex={2}
+          backgroundColor='rgba(0,0,0,0.5)'
+          onClick={() => slider?.slickPrev()}
+          
+          >
+          <BiLeftArrowAlt size="40px" />
+        </IconButton>
+        {/* Right Icon */}
+        <IconButton
+          aria-label="right-arrow"
+          variant="ghost"
+          position="absolute"
+          right={side}
+          top={top}
+          transform={'translate(0%, -50%)'}
+          zIndex={2}
+          backgroundColor='rgba(0,0,0,0.5)'
+          onClick={() => slider?.slickNext()}>
+          <BiRightArrowAlt size="40px" />
+        </IconButton>
+      </DarkMode>
       {/* Slider */}
-      <Slider {...settings} ref={(slider) => setSlider(slider)}>
-        {cards.map((card, index) => (
-          <Box
-            key={index}
-            height={'6xl'}
-            position="relative"
-            backgroundPosition="center"
-            backgroundRepeat="no-repeat"
-            backgroundSize="cover"
-            backgroundImage={`url(${card.image})`}>
-            {/* This is the block you need to change, to customize the caption */}
-            <Container size="container.lg" height="600px" position="relative">
-              <Stack
-                spacing={6}
-                w={'full'}
-                maxW={'lg'}
-                position="absolute"
-                top="50%"
-                left="-50%"
-                transform="translate(0, -50%)"
-                backgroundColor="rgba(255,255,255,0.9)"
-                px="2rem"
-                py="2rem"
-                shadow={"md"}
-                >
-                <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} color="#333">
-                  {card.title}
-                </Heading>
-                <Text fontSize={{ base: 'md', lg: 'lg' }} color="GrayText">
-                  {card.text}
-                </Text>
-                <Button colorScheme="green" w="30%" size="sm" rightIcon={<MdOpenInNew />} alignSelf={'flex-end'}>
-                  View Course
-                </Button>
-              </Stack>
-            </Container>
-          </Box>
-        ))}
-      </Slider>
+      <LightMode>
+        <Slider {...settings} ref={(slider) => setSlider(slider)}>
+          {cards.map((card, index) => (
+            <Box
+              key={index}
+              height={'6xl'}
+              position="relative"
+              backgroundPosition="center"
+              backgroundRepeat="no-repeat"
+              backgroundSize="cover"
+              backgroundImage={`url(${card.image})`}>
+              {/* This is the block you need to change, to customize the caption */}
+              <Container size="container.lg" height="600px" position="relative">
+                <Stack
+                  spacing={6}
+                  w={'full'}
+                  maxW={'lg'}
+                  position="absolute"
+                  top="50%"
+                  left="-50%"
+                  transform="translate(0, -50%)"
+                  backgroundColor="rgba(255,255,255,0.9)"
+                  px="2rem"
+                  py="2rem"
+                  shadow={"md"}
+                  >
+                  <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} color="#333">
+                    {card.title}
+                  </Heading>
+                  <Text fontSize={{ base: 'md', lg: 'lg' }} color="GrayText">
+                    {card.text}
+                  </Text>
+                  <Button colorScheme="green" w="30%" size="sm" rightIcon={<MdOpenInNew />} alignSelf={'flex-end'}>
+                    View Course
+                  </Button>
+                </Stack>
+              </Container>
+            </Box>
+          ))}
+        </Slider>
+      </LightMode>
     </Box>
   );
 }
