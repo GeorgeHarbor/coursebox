@@ -19,9 +19,14 @@ import {
   } from '@chakra-ui/react'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
 
-export default function Login() {
-    const [show, setShow] = React.useState(false)
+interface Props {
+  close: {
+      do: any
+  }
+}
 
+export default function Login(props: Props, ) {
+    const [show, setShow] = React.useState(false)
     const handleClickShow = () => setShow(!show);
   return (
     <>
@@ -32,7 +37,7 @@ export default function Login() {
       >
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerCloseButton />
+          <DrawerCloseButton onClick={() => {props.close.do(false)}}/>
           <DrawerHeader>Login to Coursebox</DrawerHeader>
           <DrawerBody>
             <Stack>
@@ -84,7 +89,7 @@ export default function Login() {
           </DrawerBody>
 
           <DrawerFooter>
-            <Button variant='outline' mr={3}>
+            <Button variant='outline' mr={3} onClick={() => {props.close.do(false)}}>
               Cancel
             </Button>
           </DrawerFooter>
