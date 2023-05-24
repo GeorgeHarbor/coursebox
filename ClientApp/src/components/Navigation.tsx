@@ -1,4 +1,4 @@
-import { useBreakpointValue, Link, Box, Button, Flex, Input, InputGroup, InputRightElement, Spacer, Image, Menu, MenuButton, MenuList, MenuItem, MenuGroup, MenuDivider, InputLeftElement, Slide, DarkMode} from '@chakra-ui/react';
+import { useBreakpointValue, Link, Box, Button, Flex, Input, InputGroup, InputRightElement, Image, Menu, MenuButton, MenuList, MenuItem, MenuGroup, MenuDivider, InputLeftElement, Slide, DarkMode} from '@chakra-ui/react';
 import { MdExpandMore, MdMenu, MdSearch } from 'react-icons/md';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import Login from './Login';
@@ -28,13 +28,13 @@ export const Navigation = () => {
                 {(isFullNavbarVisible)?(
                     <>
                         <DarkMode>
-                            <Flex alignItems="center" justifyContent="center" columnGap={'.5rem'}>
+                            <Flex alignItems="center" px={[".5rem", ".75rem", "1rem"]} columnGap={'.5rem'} width={"80%"}>
                                 <Flex alignItems="center" justifyContent="center" height={["64px", "72px", "96px"]}>
                                     <Link as={RouterLink} to='/'>
                                         <Image height={["32px"]} src="/coursebox_white.svg" alt="Coursebox Logo"/>
                                     </Link>   
                                 </Flex>
-                                <Box>
+                                <Box width="40%">
                                     <InputGroup>
                                         <InputLeftElement color="whiteAlpha.800">
                                             <MdSearch />
@@ -42,7 +42,7 @@ export const Navigation = () => {
                                         <Input placeholder="Take a look at our courses!" size="md" variant='outline'
                                             _placeholder={{color:"gray.50"}}
                                         />
-                                        <InputRightElement width='4.5rem'>
+                                        <InputRightElement width='4.5rem' zIndex={1001}>
                                             <Button size="sm" color="whiteAlpha.800">Search</Button>
                                         </InputRightElement>
                                     </InputGroup>
