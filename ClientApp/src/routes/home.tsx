@@ -1,21 +1,12 @@
-import {
-  ChakraProvider,
-  Box,
-  theme} from '@chakra-ui/react'
-import { Navigation } from './components/Navigation'
-import { Carousel } from './components/Carousel'
-import { Footer } from './components/Footer'
-import { Testimonials } from './components/Testimonials'
+import { Box } from '@chakra-ui/react'
+import { Carousel } from '../components/Carousel'
+import { Testimonials } from '../components/Testimonials'
 
-import PopularCourses from './components/PopularCourses/PopularCourses'
-import { Partners } from './components/Partners/Partners'
-import CallToAction from './components/CallToAction/CallToAction'
+import PopularCourses from '../components/PopularCourses/PopularCourses'
+import { Partners } from '../components/Partners/Partners'
+import CallToAction from '../components/CallToAction/CallToAction'
 
-export const App = () => (
-  <ChakraProvider theme={theme}>
-    {/* <Login></Login> */}
-    <Navigation />
-
+export const Home = () => (
     <Box id="content">
       <Carousel />
       <CallToAction />
@@ -88,7 +79,4 @@ export const App = () => (
       <Partners partners={[]}/>
       <Testimonials />
     </Box>
-
-    <Footer />
-  </ChakraProvider>
 )
