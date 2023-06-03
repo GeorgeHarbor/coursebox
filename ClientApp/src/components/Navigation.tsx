@@ -91,9 +91,11 @@ export const Navigation = () => {
                                     </Button>
                                 </Box>
                                 <Box>
-                                    <Button color="white">
-                                        Sign Up
-                                    </Button>
+                                    <Link as={RouterLink} to='/sign-up' color="white">
+                                        <Button>
+                                            Sign Up
+                                        </Button>
+                                    </Link>
                                 </Box>
                             </DarkMode>
                             <Box>
