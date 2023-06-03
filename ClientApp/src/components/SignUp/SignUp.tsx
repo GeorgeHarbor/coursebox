@@ -1,7 +1,9 @@
-import { Card, CardBody, CardFooter, CardHeader, Flex, Link, Image, Container, useColorModeValue, Text, Stepper, Step, StepIndicator, StepStatus, StepIcon, StepNumber, Box, StepTitle, StepDescription, StepSeparator, useSteps, Button, FormLabel, Input, FormHelperText, FormControl, Divider, Code, Wrap, WrapItem, Avatar} from "@chakra-ui/react";
+import { Card, CardBody, CardFooter, CardHeader, Flex, Link, Image, Container, useColorModeValue, Text, Stepper, Step, StepIndicator, StepStatus, StepIcon, StepNumber, Box, StepTitle, StepDescription, StepSeparator, useSteps, Button, FormLabel, Input, FormHelperText, FormControl, Divider, Code, Wrap, WrapItem, Avatar, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Slide, SlideDirection} from "@chakra-ui/react";
 import { useState } from "react";
-import { MdUpload, MdUploadFile } from "react-icons/md";
 import { Link as RouterLink } from "react-router-dom";
+import { SignUpAccount } from "./Account/SignUpAccount";
+import { SignUpInterests } from "./Interests/SignUpInterests";
+import { SignUpPersonal } from "./Personal/SignUpPersonal";
 
 export const SignUp = () => {
     const steps = [
@@ -10,10 +12,18 @@ export const SignUp = () => {
         { title: 'Interests', description: 'Pick what you like' },
       ]
 
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    
+    const { isOpen: slideOpen, onToggle: slideToggle } = useDisclosure({defaultIsOpen: true});
+
     const [hasPrevious, setHasPrevious] = useState(false);
     const [atFinish, setAtFinish] = useState(false);
     const [currentStep, setCurrentStep] = useState(1);
     
+    const [uploadAvatar, setUploadAvatar] = useState({preview: null});
+    
+    let slideDirection = "left";
+
     const [account, setAccount] = useState<UserAccount | undefined>({
         avatar: null,
         username: "",
@@ -22,10 +32,9 @@ export const SignUp = () => {
         confirm: "",
         firstName: "",
         lastName: "",
-        dateOfBirth: null,
+        dateOfBirth: undefined,
         interests: []
     });
-
     const { activeStep, setActiveStep } = useSteps({
         index: 1,
         count: steps.length,
@@ -36,11 +45,14 @@ export const SignUp = () => {
         if(activeStep + 1 > steps.length){
             // Finish login
         } else {
+            slideDirection = "right";
+            slideToggle();
             // Only completes in next cycle or something?
             setActiveStep(activeStep + 1);
 
             setHasPrevious(true);
             setCurrentStep(activeStep + 1);
+
             if(activeStep + 1 == steps.length)
                 setAtFinish(true);
         }
@@ -54,6 +66,10 @@ export const SignUp = () => {
             setCurrentStep(activeStep - 1);
 
             setAtFinish(false);
+
+            slideDirection = "left";
+            slideToggle();
+
             if(activeStep - 1 === 1)
                 setHasPrevious(false);
             
@@ -61,8 +77,9 @@ export const SignUp = () => {
         }
     }
     return(
+        <>
         <Box display='flex' justifyContent={"center"} m={"0"} alignItems={"center"} minWidth='486px' width="100%" height="100%">
-            <Card  w={["100%", "90%", "33%"]}>
+            <Card w={["100%", "90%", "33%"]} overflow='hidden'>
                 <CardHeader>
                     <Flex
                         align={'center'}
@@ -87,37 +104,33 @@ export const SignUp = () => {
                     </Flex>
                 </CardHeader>
                 <CardBody pt={"0"}>
-                    <Container style={{marginBottom: '.75rem'}}>
+                    <Container style={{marginBottom: '.75rem'}}  maxW='container.sm'>
                         <Text fontSize='xs' color={useColorModeValue('blackAlpha.500', 'whiteAlpha.500')}>
                             Step {currentStep}
                         </Text>
-                        <FormControl>
-                            <FormLabel>Avatar</FormLabel>
-                                <Flex w='100%' justifyContent='space-between' alignItems='center'>
-                                    <Button variant='outline' size='sm'>Upload avatar  <MdUploadFile/></Button>
-                                    <Avatar bg='blue.500' color='white' size='md' name="Course Box"/>
-                                </Flex>
-                                
-
-                            <FormHelperText>Allowed file types are <Code>.jpg</Code> and <Code>.png</Code></FormHelperText>
-                        </FormControl>
-                        <FormControl isRequired>
-                            <FormLabel>Username</FormLabel>
-                                <Input type='text' />
-                            <FormHelperText>Your personal username</FormHelperText>
-                        </FormControl>
-                        <FormControl isRequired>
-                            <FormLabel>Password</FormLabel>
-                                <Input type='password' />
-                            <FormHelperText>Make sure you choose something unique.</FormHelperText>
-                        </FormControl>
-                        <FormControl isRequired>
-                            <FormLabel>Repeat password</FormLabel>
-                                <Input type='password' />
-                            <FormHelperText>Make sure the passwords match.</FormHelperText>
-                        </FormControl>
-                    </Container>
-                    <Stepper index={activeStep}>
+                        {
+                            (currentStep === 1)?
+                            // <Slide direction={slideDirection as SlideDirection} in={slideOpen} style={{zIndex: 10, position:'relative'}}>
+                                <SignUpAccount 
+                                    uploadAvatar={uploadAvatar}
+                                    setUploadAvatar={setUploadAvatar}
+                                    onClose={onClose}
+                                    isOpen={isOpen}
+                                    onOpen={onOpen}
+                                    account={account}
+                                    setAccount={setAccount}
+                                />
+                            :(currentStep === 2)?
+                                <SignUpPersonal 
+                                account={account}
+                                setAccount={setAccount}
+                                />
+                            : <SignUpInterests
+                                account={account}
+                                setAccount={setAccount}
+                            />
+                        }
+                        <Stepper index={activeStep} mt='1rem'>
                             {steps.map((step, index) => (
                                 <Step key={index}>
                                 <StepIndicator>
@@ -137,6 +150,7 @@ export const SignUp = () => {
                                 </Step>
                             ))}
                     </Stepper>
+                    </Container>
                     <Divider my=".5rem" p="0"/>
                 </CardBody>
                 <CardFooter justifyContent={'flex-end'} pt="0" columnGap='.5rem'>
@@ -161,5 +175,6 @@ export const SignUp = () => {
                 </CardFooter>
             </Card>
         </Box>
+        </>
     );
 }
