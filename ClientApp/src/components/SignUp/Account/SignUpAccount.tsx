@@ -1,4 +1,4 @@
-import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Avatar, Button, Code, Flex, FormControl, FormHelperText, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useColorModeValue, useDisclosure } from "@chakra-ui/react";
+import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Avatar, Button, Code, Flex, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useColorModeValue, useDisclosure } from "@chakra-ui/react";
 import { MdUploadFile, MdWarning } from "react-icons/md";
 import AvatarUpload from "react-avatar-edit"; 
 import React from "react";
@@ -76,21 +76,35 @@ export const SignUpAccount = (props: any) => {
                     </Flex>
                 <FormHelperText mt='0.1rem' mb='0.5rem'>Allowed file types are <Code>.jpg</Code> and <Code>.png</Code></FormHelperText>
             </FormControl>
-            <FormControl isRequired>
+            <FormControl isRequired isInvalid={props.errorMessages.username.length !== 0}>
                 <FormLabel>Username</FormLabel>
-                    <Input type='text' value={props.account.username} onChange={handleChange['username']}/>
-                <FormHelperText mt='0.1rem' mb='0.5rem'>Your personal username</FormHelperText>
+                <Input type='text' value={props.account.username} onChange={handleChange['username']}/>
+                {
+                    (props.errorMessages.username.length === 0)?
+                        <FormHelperText mt='0.1rem' mb='0.5rem'>Your personal username</FormHelperText>
+                    :<FormErrorMessage mt='0.1rem' mb='0.5rem'>{props.errorMessages.username}</FormErrorMessage>
+                }
+                
+                
             </FormControl>
             <Flex columnGap='1rem'>
-                <FormControl isRequired>
+                <FormControl isRequired isInvalid={props.errorMessages.password.length !== 0}>
                     <FormLabel>Password</FormLabel>
-                        <Input type='password' value={props.account.password} onChange={handleChange['password']}/>
-                    <FormHelperText mt='0.1rem' mb='0.5rem'>Make sure you choose something unique.</FormHelperText>
+                    <Input type='password' value={props.account.password} onChange={handleChange['password']}/>
+                    {
+                        (props.errorMessages.password.length === 0)?
+                            <FormHelperText mt='0.1rem' mb='0.5rem'>Make sure you choose something unique.</FormHelperText>
+                        :<FormErrorMessage mt='0.1rem' mb='0.5rem'>{props.errorMessages.password}</FormErrorMessage>
+                    }
                 </FormControl>
-                <FormControl isRequired>
+                <FormControl isRequired isInvalid={props.errorMessages.confirm.length !== 0}>
                     <FormLabel>Repeat password</FormLabel>
-                        <Input type='password' value={props.account.confirm} onChange={handleChange['confirm']}/>
-                    <FormHelperText mt='0.1rem' mb='0.5rem'>Make sure the passwords match.</FormHelperText>
+                    <Input type='password' value={props.account.confirm} onChange={handleChange['confirm']}/>
+                    {
+                        (props.errorMessages.confirm.length === 0)?
+                            <FormHelperText mt='0.1rem' mb='0.5rem'>Make sure the passwords match.</FormHelperText>
+                        :<FormErrorMessage mt='0.1rem' mb='0.5rem'>{props.errorMessages.confirm}</FormErrorMessage>
+                    }
                 </FormControl>
             </Flex>
             <Modal isOpen={props.isOpen} onClose={props.onClose} isCentered size='xl'>
@@ -126,7 +140,7 @@ export const SignUpAccount = (props: any) => {
                 <AlertDialogOverlay>
                 <AlertDialogContent>
                     <AlertDialogHeader fontSize='lg' fontWeight='bold' display='flex' alignItems='center' columnGap='1rem'>
-                        <MdWarning color='red'/> Cannot use this image!
+                        <MdWarning color='red.500'/> Cannot use this image!
                     </AlertDialogHeader>
 
                     <AlertDialogBody>
@@ -134,9 +148,9 @@ export const SignUpAccount = (props: any) => {
                     </AlertDialogBody>
 
                     <AlertDialogFooter>
-                    <Button ref={cancelRef} colorScheme="red" onClick={onClose} ml={3}>
-                        I understand
-                    </Button>
+                        <Button ref={cancelRef} colorScheme="red" onClick={onClose} ml={3}>
+                            I understand
+                        </Button>
                     </AlertDialogFooter>
                 </AlertDialogContent>
                 </AlertDialogOverlay>

@@ -7,7 +7,7 @@ type UserAccount = {
 
     firstName: string,
     lastName: string,
-    dateOfBirth: Date | undefined,
+    dateOfBirth: Date | undefined | string,
 
     interests: Array<string>
 }

@@ -1,4 +1,4 @@
-import { FormControl, FormLabel, Input, FormHelperText, Flex } from "@chakra-ui/react";
+import { FormControl, FormLabel, Input, FormHelperText, Flex, FormErrorMessage } from "@chakra-ui/react";
 
 export const SignUpPersonal = (props: any) => {
     const handleChange = {
@@ -24,24 +24,31 @@ export const SignUpPersonal = (props: any) => {
         },
     }
     return(<>
-        <FormControl isRequired>
+        <FormControl isRequired isInvalid={props.errorMessages.email.length !== 0}>
             <FormLabel>E-mail</FormLabel>
-                <Input type='email' value={props.account.email} onChange={handleChange['email']}/>
-            <FormHelperText mt='0.1rem' mb='0.5rem'>We will never share this address with anyone</FormHelperText>
+            <Input type='email' value={props.account.email} onChange={handleChange['email']}/>
+            {
+                (props.errorMessages.email.length === 0)?
+                    <FormHelperText mt='0.1rem' mb='0.5rem'>We will never share this address with anyone</FormHelperText>
+                :<FormErrorMessage mt='0.1rem' mb='0.5rem'>{props.errorMessages.email}</FormErrorMessage>
+            }
         </FormControl>
         <Flex columnGap='1rem'>
-            <FormControl isRequired>
+            <FormControl isRequired isInvalid={props.errorMessages.firstName.length !== 0}>
                 <FormLabel>First Name</FormLabel>
-                    <Input type='text' value={props.account.firstName} onChange={handleChange['first_name']}/>
+                <Input type='text' value={props.account.firstName} onChange={handleChange['first_name']}/>
+                <FormErrorMessage mt='0.1rem' mb='0.5rem'>{props.errorMessages.firstName}</FormErrorMessage>
             </FormControl>
-            <FormControl isRequired>
+            <FormControl isRequired isInvalid={props.errorMessages.lastName.length !== 0}>
                 <FormLabel>Last Name</FormLabel>
-                    <Input type='text' value={props.account.lastName} onChange={handleChange['last_name']}/>
+                <Input type='text' value={props.account.lastName} onChange={handleChange['last_name']}/>
+                <FormErrorMessage mt='0.1rem' mb='0.5rem'>{props.errorMessages.lastName}</FormErrorMessage>
             </FormControl>
         </Flex>
-        <FormControl isRequired>
+        <FormControl isRequired isInvalid={props.errorMessages.dateOfBirth.length !== 0 && props.errorMessages.dateOfBirth !== undefined}>
                 <FormLabel>Date of Birth</FormLabel>
-                    <Input value={props.account.dateOfBirth} onChange={handleChange['dob']} type='date' max={new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0]}/>
+                <Input value={props.account.dateOfBirth} onChange={handleChange['dob']} type='date' max={new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0]}/>
+                <FormErrorMessage mt='0.1rem' mb='0.5rem'>{props.errorMessages.dateOfBirth}</FormErrorMessage>
         </FormControl>
     </>);
 }
