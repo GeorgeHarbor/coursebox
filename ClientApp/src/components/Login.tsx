@@ -18,6 +18,7 @@ import {
     Link
   } from '@chakra-ui/react'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
+import { Link as RouterLink } from "react-router-dom";
 
 interface Props {
   close: {
@@ -69,15 +70,15 @@ export default function Login(props: Props, ) {
                 <Box w='100%'>
                     <Flex alignItems={'center'} columnGap={'.5rem'} w='100%'>
                         <Box alignSelf={'flex-start'}>
-                            <Link>
+                            <Link as={ RouterLink } to="/sign-up/">
                                 <Text fontSize='xs'>
                                     Sign up
                                 </Text>
                             </Link>
-                            <Link>
-                            <Text fontSize='xs'>
-                                    Forgot Password?
-                                </Text>
+                            <Link as={ RouterLink } to="/forgot-password/">
+                              <Text fontSize='xs'>
+                                Forgot Password?
+                              </Text>
                             </Link>
                         </Box>
                         <Button colorScheme='green' ml='auto'>Login</Button>

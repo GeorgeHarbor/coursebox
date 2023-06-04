@@ -18,6 +18,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   ChakraProvider,
   theme} from '@chakra-ui/react'
+import { CoursePage } from './routes/course';
 
 
 const router = createBrowserRouter([
@@ -26,12 +27,16 @@ const router = createBrowserRouter([
     element:<Home/>
   },
   {
-    path:"/sign-up",
+    path:"/sign-up/:login?",
     element:<SignUpPage/>
   },
   {
     path:"/online-degree",
     element:<OnlineDegreePage/>
+  },
+  {
+    path:"/course/:courseId?",
+    element:<CoursePage/>
   }
 ])
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);

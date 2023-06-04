@@ -27,8 +27,9 @@ export const Navigation = () => {
 
                 {(isFullNavbarVisible)?(
                     <>
-                        <DarkMode>
+                        
                             <Flex alignItems="center" px={[".5rem", ".75rem", "1rem"]} columnGap={'.5rem'} width={"80%"}>
+                            <DarkMode>
                                 <Flex alignItems="center" justifyContent="center" height={["64px", "72px", "96px"]}>
                                     <Link as={RouterLink} to='/'>
                                         <Image height={["32px"]} src="/coursebox_white.svg" alt="Coursebox Logo"/>
@@ -40,32 +41,36 @@ export const Navigation = () => {
                                             <MdSearch />
                                         </InputLeftElement>
                                         <Input placeholder="Take a look at our courses!" size="md" variant='outline'
-                                            _placeholder={{color:"gray.50"}}
+                                            _placeholder={{color:"gray.50"}} color='white'
                                         />
                                         <InputRightElement width='4.5rem' zIndex={1001}>
                                             <Button size="sm" color="whiteAlpha.800">Search</Button>
                                         </InputRightElement>
                                     </InputGroup>
                                 </Box>
+                                </DarkMode>
                                 <Box>
-                                <Menu>
-                                    <MenuButton variant="ghost" as={Button} rightIcon={<MdExpandMore/>} display="flex" alignItems="center">
-                                        Categories
-                                    </MenuButton>
-                                    <MenuList>
-                                        <MenuGroup title="Programming">
-                                            <MenuItem>C Basics 101</MenuItem>
-                                            <MenuItem>Web Programming</MenuItem>
-                                            <MenuItem>Python 101</MenuItem>
-                                        </MenuGroup>
-                                        <MenuDivider />
-                                        <MenuGroup title="Computer Science">
-                                            <MenuItem>Computer Memory</MenuItem>
-                                            <MenuItem>Computer Processors</MenuItem>
-                                        </MenuGroup>
-                                    </MenuList>
-                                </Menu>
-                            </Box>
+                                    <Menu>
+                                        <DarkMode>
+                                        <MenuButton variant="ghost" as={Button} rightIcon={<MdExpandMore/>} display="flex" alignItems="center">
+                                            Categories
+                                        </MenuButton>
+                                        </DarkMode>
+                                        <MenuList>
+                                            <MenuGroup title="Programming">
+                                                <MenuItem>C Basics 101</MenuItem>
+                                                <MenuItem>Web Programming</MenuItem>
+                                                <MenuItem>Python 101</MenuItem>
+                                            </MenuGroup>
+                                            <MenuDivider />
+                                            <MenuGroup title="Computer Science">
+                                                <MenuItem>Computer Memory</MenuItem>
+                                                <MenuItem>Computer Processors</MenuItem>
+                                            </MenuGroup>
+                                        </MenuList>
+                                    </Menu>
+                                </Box>
+                                <DarkMode>
                                 <Box>
                                     <Button variant="ghost">
                                         FAQ
@@ -81,8 +86,8 @@ export const Navigation = () => {
                                         Contact
                                     </Button>
                                 </Box>
+                                </DarkMode>
                             </Flex>
-                        </DarkMode>
                         <Flex alignItems="center" justifyContent="center" columnGap={'.5rem'}>
                             <DarkMode>
                                 <Box>
@@ -99,7 +104,7 @@ export const Navigation = () => {
                                 </Box>
                             </DarkMode>
                             <Box>
-                                <ColorModeSwitcher />
+                                <ColorModeSwitcher color='white'/>
                             </Box>
                         </Flex>
                     </>
