@@ -19,6 +19,7 @@ import {
   ChakraProvider,
   theme} from '@chakra-ui/react'
 import { CoursePage } from './routes/course';
+import { SearchPage } from './routes/search';
 
 
 const router = createBrowserRouter([
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
   {
     path:"/course/:courseId?",
     element:<CoursePage/>
+  },
+  {
+    path:"/search",
+    element:<SearchPage />
   }
 ])
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
