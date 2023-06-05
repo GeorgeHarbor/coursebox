@@ -26,6 +26,7 @@ import {
   theme} from '@chakra-ui/react'
 import { ErrorPage } from './components/ErrorPage/ErrorPage';
 import { Index } from './components/Index/Index';
+import { Contact } from './components/Contact/Contact';
 
 
 const router = createBrowserRouter([
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
             element: <ControlPanel />
           }
         ]
+      },
+      {
+        path:"/contact",
+        element: <Contact/>
       }
     ]
   },

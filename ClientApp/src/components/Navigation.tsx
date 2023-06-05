@@ -109,19 +109,18 @@ export const Navigation = () => {
                                 </Box>
                                 <DarkMode>
                                 <Box>
-                                    <Button variant="ghost">
-                                        FAQ
-                                    </Button>
+                                    <Link as={RouterLink} to="/about-us">
+                                        <Button variant="ghost">
+                                            About Us
+                                        </Button>
+                                    </Link>
                                 </Box>
                                 <Box>
-                                    <Button variant="ghost">
-                                        About Us
-                                    </Button>
-                                </Box>
-                                <Box>
-                                    <Button variant="ghost">
-                                        Contact
-                                    </Button>
+                                    <Link as={RouterLink} to="/contact">
+                                        <Button variant="ghost">
+                                            Contact
+                                        </Button>
+                                    </Link>
                                 </Box>
                                 </DarkMode>
                             </Flex>

@@ -1,6 +1,4 @@
 import { Box, Flex } from "@chakra-ui/react";
-import { Navigation } from "../components/Navigation";
-import { Footer } from "../components/Footer";
 import { CourseHeader } from "../components/Course/CourseHeader";
 import { CourseBody } from "../components/Course/CourseBody";
 import { CourseDetails } from "../components/Course/CourseDetails";
