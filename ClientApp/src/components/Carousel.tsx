@@ -49,7 +49,7 @@ export function Carousel() {
       text:
         "Learn more about this and that by taking a look at this premium project for free. Perfect for students and graduates!",
       image:
-        'https://pll.harvard.edu/sites/default/files/styles/header/public/course/CS50G_pll.png?itok=WSUk4yFK',
+        'https://prod-discovery.edx-cdn.org/media/course/image/6f9e9524-61ec-4b7a-a02a-6708cab268b9-cd9b2f49ed7b.small.png',
     },
     {
       title: 'CS50x Course',

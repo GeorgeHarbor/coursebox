@@ -4,13 +4,40 @@ import { ColorModeSwitcher } from './ColorModeSwitcher';
 import Login from './Login';
 import { useState } from 'react';
 
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
 
 export const Navigation = () => {
-    const [isLoginVisible, setLoginState] = useState(false);
+    const [searchParams, setSearchParams] = useSearchParams();
 
+    const navigate = useNavigate();
+    const [searchQuery, setSearchQuery] = useState("");
+    const [isLoginVisible, setLoginState] = useState(false);
     const isFullNavbarVisible = useBreakpointValue({md: false, lg: true}, { ssr: false })
 
+    if(searchParams.has("query")){
+        if(searchQuery !== searchParams.get("query"))
+            setSearchQuery(searchParams.get("query") as string);
+    }
+        
+    function handleSearchQueryChange(event: React.ChangeEvent<HTMLInputElement>): void{
+        setSearchQuery(event.target.value);
+        return;
+    }
+
+    function handleSearchKeydown(event: React.KeyboardEvent<HTMLInputElement>):void{
+        if(event.key === "Enter")
+            sendToSearch();
+        return;
+    }
+
+    function sendToSearch(): void{
+        const searchParameters = createSearchParams({query: searchQuery});
+        navigate({
+            pathname:"/search",
+            search: `?${searchParameters}`
+        });
+        return;
+    }
     return(
         <>
         <Slide in={isLoginVisible} style={{ zIndex: 10 }} unmountOnExit>
@@ -24,10 +51,8 @@ export const Navigation = () => {
 
         height={["64px"]}
         >
-
                 {(isFullNavbarVisible)?(
                     <>
-                        
                             <Flex alignItems="center" px={[".5rem", ".75rem", "1rem"]} columnGap={'.5rem'} width={"80%"}>
                             <DarkMode>
                                 <Flex alignItems="center" justifyContent="center" height={["64px", "72px", "96px"]}>
@@ -40,11 +65,11 @@ export const Navigation = () => {
                                         <InputLeftElement color="whiteAlpha.800">
                                             <MdSearch />
                                         </InputLeftElement>
-                                        <Input placeholder="Take a look at our courses!" size="md" variant='outline'
-                                            _placeholder={{color:"gray.50"}} color='white'
+                                        <Input value={searchQuery} placeholder="Take a look at our courses!" size="md" variant='outline'
+                                            _placeholder={{color:"gray.50"}} color='white' onChange={handleSearchQueryChange} onKeyDown={handleSearchKeydown}
                                         />
                                         <InputRightElement width='4.5rem' zIndex={1001}>
-                                            <Button size="sm" color="whiteAlpha.800">Search</Button>
+                                            <Button size="sm" color="whiteAlpha.800" onClick={sendToSearch}>Search</Button>
                                         </InputRightElement>
                                     </InputGroup>
                                 </Box>
@@ -67,6 +92,22 @@ export const Navigation = () => {
                                                 <MenuItem>Computer Memory</MenuItem>
                                                 <MenuItem>Computer Processors</MenuItem>
                                             </MenuGroup>
+                                        </MenuList>
+                                    </Menu>
+                                </Box>
+                                <Box>
+                                    <Menu>
+                                        <DarkMode>
+                                        <MenuButton variant="ghost" as={Button} rightIcon={<MdExpandMore/>} display="flex" alignItems="center">
+                                            Schools
+                                        </MenuButton>
+                                        </DarkMode>
+                                        <MenuList>
+                                            <MenuItem>MIT OCW</MenuItem>
+                                            <MenuItem>edX</MenuItem>
+                                            <MenuItem>Coursera</MenuItem>
+                                            <MenuItem>OpenLearn</MenuItem>
+                                            <MenuItem>Codecademy</MenuItem>
                                         </MenuList>
                                     </Menu>
                                 </Box>

@@ -7,7 +7,13 @@ import ReactDOM from 'react-dom/client';
 // ------------------------------------------
 import { Home } from './routes/home';
 import { SignUpPage } from './routes/sign_up';
-import { OnlineDegreePage } from './routes/online_degree';
+import { CoursePage } from './routes/course';
+import { SearchPage } from './routes/search';
+import { DashboardPage } from './routes/dashboard';
+import { MyCourses } from './components/Dashboard/MyCourses/MyCourses';
+import { Settings } from './components/Dashboard/Settings/Settings';
+import { ControlPanel } from './components/Dashboard/ControlPanel/ControlPanel';
+import { OnlineDegree } from './components/OnlineDegree/OnlineDegree';
 
 // React router
 // ------------------------------------------
@@ -18,8 +24,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   ChakraProvider,
   theme} from '@chakra-ui/react'
-import { CoursePage } from './routes/course';
-import { SearchPage } from './routes/search';
 
 
 const router = createBrowserRouter([
@@ -32,16 +36,34 @@ const router = createBrowserRouter([
     element:<SignUpPage/>
   },
   {
-    path:"/online-degree",
-    element:<OnlineDegreePage/>
-  },
-  {
     path:"/course/:courseId?",
     element:<CoursePage/>
   },
   {
     path:"/search",
     element:<SearchPage />
+  },
+  {
+    path:"/dashboard",
+    element:<DashboardPage/>,
+    children: [
+      {
+        index: true,
+        element:<MyCourses />
+      },
+      {
+        path:"online-degree",
+        element:<OnlineDegree />
+      },
+      {
+        path:"settings",
+        element: <Settings />
+      },
+      {
+        path:"control-panel",
+        element: <ControlPanel />
+      }
+    ]
   }
 ])
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);

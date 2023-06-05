@@ -91,6 +91,9 @@ import {
       <Text pt={6} fontSize={'sm'} textAlign={'center'}>
         © {new Date().getFullYear()} CourseBox. All rights reserved
       </Text>
+      <Text fontSize={'sm'} textAlign={'center'}>
+        Jovana Hinic S19/20, Luka Djordjevic S41/20, Gvozden Despotovski S56/20
+      </Text>
     </Box>
   </Box>
 
