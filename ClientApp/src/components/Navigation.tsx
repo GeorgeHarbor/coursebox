@@ -10,14 +10,9 @@ export const Navigation = () => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const navigate = useNavigate();
-    const [searchQuery, setSearchQuery] = useState("");
+    const [searchQuery, setSearchQuery] = useState(searchParams.get("query") ?? "");
     const [isLoginVisible, setLoginState] = useState(false);
     const isFullNavbarVisible = useBreakpointValue({md: false, lg: true}, { ssr: false })
-
-    if(searchParams.has("query")){
-        if(searchQuery !== searchParams.get("query"))
-            setSearchQuery(searchParams.get("query") as string);
-    }
         
     function handleSearchQueryChange(event: React.ChangeEvent<HTMLInputElement>): void{
         setSearchQuery(event.target.value);
@@ -38,6 +33,7 @@ export const Navigation = () => {
         });
         return;
     }
+
     return(
         <>
         <Slide in={isLoginVisible} style={{ zIndex: 10 }} unmountOnExit>

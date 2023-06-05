@@ -24,46 +24,55 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   ChakraProvider,
   theme} from '@chakra-ui/react'
+import { ErrorPage } from './components/ErrorPage/ErrorPage';
+import { Index } from './components/Index/Index';
 
 
 const router = createBrowserRouter([
   {
     path:"/",
-    element:<Home/>
+    element:<Home/>,
+    errorElement: <ErrorPage/>,
+    children:[
+      {
+        index: true,
+        element:<Index />
+      },
+      {
+        path:"/course/:courseId?",
+        element:<CoursePage/>
+      },
+      {
+        path:"/search",
+        element:<SearchPage />
+      },
+      {
+        path:"/dashboard",
+        element:<DashboardPage/>,
+        children: [
+          {
+            index: true,
+            element:<MyCourses />
+          },
+          {
+            path:"online-degree",
+            element:<OnlineDegree />
+          },
+          {
+            path:"settings",
+            element: <Settings />
+          },
+          {
+            path:"control-panel",
+            element: <ControlPanel />
+          }
+        ]
+      }
+    ]
   },
   {
     path:"/sign-up/:login?",
     element:<SignUpPage/>
-  },
-  {
-    path:"/course/:courseId?",
-    element:<CoursePage/>
-  },
-  {
-    path:"/search",
-    element:<SearchPage />
-  },
-  {
-    path:"/dashboard",
-    element:<DashboardPage/>,
-    children: [
-      {
-        index: true,
-        element:<MyCourses />
-      },
-      {
-        path:"online-degree",
-        element:<OnlineDegree />
-      },
-      {
-        path:"settings",
-        element: <Settings />
-      },
-      {
-        path:"control-panel",
-        element: <ControlPanel />
-      }
-    ]
   }
 ])
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);

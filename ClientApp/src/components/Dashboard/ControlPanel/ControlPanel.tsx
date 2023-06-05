@@ -21,9 +21,9 @@ export const ControlPanel = () => {
                             </InputGroup>
                         </CardHeader>
                         <Divider/>
-                        <CardBody>
-                            <Stack>
-                                <Flex justifyContent='space-between' columnGap='1rem' alignItems='center'>
+                        <CardBody p={0}>
+                            <Stack p={0}>
+                                <Flex _hover={{backgroundColor:"gray.800", cursor: "pointer"}} p=".75rem" justifyContent='space-between' columnGap='1rem' alignItems='center'>
                                     <Text>Exploring GraphQL: A Query Language for APIs</Text>
                                     <Flex columnGap='.5rem'>
                                         <IconButton size='sm' colorScheme='yellow' variant='outline' icon={<MdEdit />} aria-label="Edit course" />
@@ -31,7 +31,7 @@ export const ControlPanel = () => {
                                     </Flex>
                                 </Flex>
                                 <StackDivider />
-                                <Flex justifyContent='space-between' columnGap='1rem' alignItems='center'>
+                                <Flex _hover={{backgroundColor:"gray.800", cursor: "pointer"}} justifyContent='space-between' p=".75rem" columnGap='1rem' alignItems='center'>
                                     <Text>Exploring GraphQL: A Query Language for APIs</Text>
                                     <Flex columnGap='.5rem'>
                                         <IconButton size='sm' colorScheme='yellow' variant='outline' icon={<MdEdit />} aria-label="Edit course" />
@@ -39,7 +39,7 @@ export const ControlPanel = () => {
                                     </Flex>
                                 </Flex>
                                 <StackDivider />
-                                <Flex justifyContent='space-between' columnGap='1rem' alignItems='center'>
+                                <Flex _hover={{backgroundColor:"gray.800", cursor: "pointer"}} justifyContent='space-between' p=".75rem" columnGap='1rem' alignItems='center'>
                                     <Text>Exploring GraphQL: A Query Language for APIs</Text>
                                     <Flex columnGap='.5rem'>
                                         <IconButton size='sm' colorScheme='yellow' variant='outline' icon={<MdEdit />} aria-label="Edit course" />

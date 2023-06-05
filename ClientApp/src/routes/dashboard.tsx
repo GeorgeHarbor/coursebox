@@ -7,12 +7,8 @@ import { DashboardNavigation } from "../components/Dashboard/DashboardNavigation
 export const DashboardPage = () => {
     return(
         <>
-            <Navigation/>
-            <Box id='content'>
-                <DashboardNavigation />
-                <Outlet />
-            </Box>
-            <Footer/>
+            <DashboardNavigation />
+            <Outlet />
         </>
     )
 }
