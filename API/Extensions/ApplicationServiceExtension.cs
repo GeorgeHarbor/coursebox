@@ -1,5 +1,6 @@
-﻿using Persistence;
-
+﻿using Application.Core;
+using Application.Courses;
+using Persistence;
 namespace API.Extensions;
 
 public static class ApplicationServiceExtension
@@ -15,6 +16,11 @@ public static class ApplicationServiceExtension
             var databaseName = config.GetValue<string>("MongoDB:DatabaseName");
             return new DataContext(connectionString, databaseName);
         });
+
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<List>());
+
+        services.AddSingleton<CourseMapper>();
+        services.AddSingleton<SchoolMapper>();
         
         return services;
     }
