@@ -1,4 +1,6 @@
 ﻿using Application.Courses;
+﻿using Application.Core;
+using Application.Courses;
 using Persistence;
 
 namespace API.Extensions;
@@ -18,6 +20,8 @@ public static class ApplicationServiceExtension
         });
 
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<List>());
+
+        services.AddSingleton<CourseMapper>();
         
         return services;
     }
