@@ -2,6 +2,7 @@
 using System.Reflection;
 using Application.DTOs;
 using Domain;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using Persistence;
 
@@ -22,7 +23,8 @@ public class CourseMapper
         Type courseDtoType = typeof(CourseDto);
         PropertyInfo[] courseProperties = courseType.GetProperties();
         PropertyInfo[] courseDtoProperties = courseDtoType.GetProperties();
-
+        
+        var schools = await _context.Schools.Find(new BsonDocument()).ToListAsync(cancellationToken);
         CourseDto courseDto = new();
         foreach (var courseProperty in courseProperties)
         {
@@ -36,12 +38,14 @@ public class CourseMapper
             var value = courseProperty.GetValue(course);
             if (destinationProperty.Name == "School")
             {
-                var result = await  _context.Schools.Find(s => s.Id.Equals(course.School)).FirstOrDefaultAsync(cancellationToken);
-                dynamic school = new ExpandoObject();
-                school.Id = result.Id.ToString();
-                school.Name = result.Name;
-                school.Description = result.Description;
-                school.ImageLink = result.ImageLink;
+                var result = schools.Find(s => s.Id!.Equals(course.School));
+                SchoolPartial school = new()
+                {
+                    Id = result.Id,
+                    Name = result.Name,
+                    Description = result.Description,
+                    ImageLink = result.ImageLink
+                };
                 value = school;
             }
 
