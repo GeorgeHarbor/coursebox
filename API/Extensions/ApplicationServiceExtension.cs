@@ -5,6 +5,8 @@ using Application.Courses;
 using AspNetCore.Identity.MongoDbCore.Extensions;
 using AspNetCore.Identity.MongoDbCore.Infrastructure;
 using Domain;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -98,6 +100,7 @@ public static class ApplicationServiceExtension
             });
         });
         
+        services.AddValidatorsFromAssemblyContaining<Create>();
         return services;
     }
 }
