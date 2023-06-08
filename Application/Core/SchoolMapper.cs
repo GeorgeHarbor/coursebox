@@ -2,6 +2,7 @@
 using System.Reflection;
 using Application.DTOs;
 using Domain;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using Persistence;
@@ -24,6 +25,8 @@ public class SchoolMapper
         PropertyInfo[] schoolProperties = schoolType.GetProperties();
         PropertyInfo[] schoolDtoProperties = schoolDtoType.GetProperties();
 
+        var coursesList = await _context.Courses.Find(new BsonDocument()).ToListAsync(cancellationToken: CancellationToken.None);
+        
         SchoolDto schoolDto = new();
 
         foreach (var schoolProperty in schoolProperties)
@@ -37,19 +40,19 @@ public class SchoolMapper
             if (destinationProperty.Name == "Courses")
             {
                 List<string> ids = (schoolProperty.GetValue(school) as List<string>)!;
-                List<Course> courses = await _context.Courses.Find(x => ids.Contains(x.Id!)).ToListAsync();
+                List<Course> courses = coursesList.FindAll(x => ids.Contains(x.Id!));
                 List<object> result = new();
-                foreach (var course in courses)
+                CoursePartial course = new();
+                foreach (var c in courses)
                 {
-                    dynamic c = new ExpandoObject();
-                    c.Name = course.Name;
-                    c.Description = course.Description;
-                    c.Duration = course.Duration;
-                    c.Rating = course.Rating;
-                    c.Image = course.Image;
-                    c.Instructods = course.Instructors;
-                    c.Keywords = course.Keywords;
-                    c.Link = course.Link;
+                    course.Id = c.Id;
+                    course.Name = c.Name;
+                    course.Duration = c.Duration;
+                    course.Rating = c.Rating;
+                    course.Image = c.Image;
+                    course.Instructors = c.Instructors;
+                    course.Keywords = c.Keywords;
+                    course.Link = c.Link;
                     
                     result.Add(c);
                 }
