@@ -2,12 +2,13 @@
 using Application.Core;
 using Domain;
 using MediatR;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 
 namespace API.Controllers;
 
-
+[EnableCors("DEVPolicy")]
 [Route("api/[controller]")]
 [ApiController]
 public class BaseApiController: ControllerBase
