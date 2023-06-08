@@ -1,5 +1,6 @@
 ﻿using Application.Courses;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using Persistence;
@@ -29,12 +30,14 @@ public class CoursesController : BaseApiController
     }
 
     [HttpPost]
+    [Authorize(Roles = "ADMIN")]
     public async Task<ActionResult> CreateCourse([FromBody] Course course)
     {
         return HandleResult(await Mediator.Send(new Create.Command { Course = course }));
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "ADMIN")]
     public async Task<ActionResult> DeleteCourse(string id)
     {
         
@@ -42,6 +45,7 @@ public class CoursesController : BaseApiController
     }
 
     [HttpPut]
+    [Authorize(Roles = "ADMIN")]
     public async Task<ActionResult> EditCourse([FromBody] Course course)
     {
         return HandleResult(await Mediator.Send(new Edit.Command {Course = course}));

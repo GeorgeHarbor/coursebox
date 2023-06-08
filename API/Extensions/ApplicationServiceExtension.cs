@@ -87,6 +87,16 @@ public static class ApplicationServiceExtension
 
         services.AddSingleton<CourseMapper>();
         services.AddSingleton<SchoolMapper>();
+
+        services.AddAuthorization(opt =>
+        {
+            opt.AddPolicy("RequireUserRole", policy =>
+            {
+                policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
+                policy.RequireAuthenticatedUser();
+                policy.RequireRole("USER");
+            });
+        });
         
         return services;
     }

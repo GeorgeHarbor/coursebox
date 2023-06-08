@@ -3,6 +3,7 @@ using Application.DTOs;
 using Application.Roles;
 using Application.Users;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,6 +39,7 @@ public class AuthenticationController : BaseApiController
 
     [HttpPost]
     [Route("role")]
+    [Authorize(Roles = "ADMIN")]
     public async Task<IActionResult> CreateRole([FromBody] RoleRequest request)
     {
         return HandleResult(await Mediator.Send(new Create.Command { RoleRequest = request }));
