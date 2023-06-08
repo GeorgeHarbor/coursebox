@@ -100,6 +100,7 @@ public static class ApplicationServiceExtension
             });
         });
         
+        // services.AddFluentValidationAutoValidation();
         services.AddValidatorsFromAssemblyContaining<Create>();
         return services;
     }
