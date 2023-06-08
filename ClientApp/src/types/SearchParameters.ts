@@ -1,6 +1,6 @@
 type SearchParameters = {
-    category: Array<string>,
-    school: Array<string>,
+    category: Array<{id: string, name: string}>,
+    school: Array<{id: string, name: string}>,
     difficulty: Array<string>,
     duration: {
         from: number,

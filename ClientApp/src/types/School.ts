@@ -1,6 +1,6 @@
 type School = {
     courses: Array<Course>,
     description: string,
-    image_link: string,
+    imageLink: string,
     name: string
 }

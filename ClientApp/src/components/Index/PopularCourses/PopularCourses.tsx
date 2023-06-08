@@ -2,17 +2,7 @@ import { Box, Heading, SimpleGrid, Text, useColorModeValue } from '@chakra-ui/re
 import { CourseCard } from './CourseCard';
 
 interface Props {
-    courses: Array<Course>;
-}
- 
-interface Course {
-    id: number,
-    image: {
-        link: string,
-        alt: string
-    },
-    title: string,
-    text: string
+    courses: Array<TPopularCourse>;
 }
  
 const PopularCourses = (props: Props) => {
@@ -23,8 +13,8 @@ const PopularCourses = (props: Props) => {
                 <Text fontSize='md' mb="1rem">Discover courses which others liked the most</Text>
             </Box>
             <SimpleGrid columns={[1, 2, 3, 4]} spacing="2rem" mx="10%">
-                {props.courses.map((v) => {
-                    return <CourseCard key={v.id} image={{link: v.image.link, alt: v.image.alt}} title={v.title} text={v.text}></CourseCard>
+                {props.courses.map((v, i) => {
+                    return <CourseCard key={i} image={{link: v.image.link, alt: v.image.alt}} title={v.title} text={v.text} link={v.link} category={v.category}></CourseCard>
                 })}
             </SimpleGrid>
         </Box>);

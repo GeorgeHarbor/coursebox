@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   IconButton,
@@ -9,10 +9,12 @@ import {
   Container,
   Button,
   DarkMode,
-  LightMode
+  LightMode,
+  Link
 } from '@chakra-ui/react';
 // Here we have used react-icons package for the icons
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
+import {Link as RouterLink } from 'react-router-dom';
 
 import { MdOpenInNew } from 'react-icons/md';
 // And react-slick as our Carousel Lib
@@ -31,7 +33,7 @@ const settings = {
   slidesToScroll: 1,
 };
 
-export function Carousel() {
+export function Carousel(props: {cards: Array<CarouselCard>}) {
   // As we have used custom buttons, we need a reference variable to
   // change the state
   const [slider, setSlider] = React.useState<Slider | null>(null);
@@ -40,32 +42,6 @@ export function Carousel() {
   // buttons as the screen size changes
   const top = useBreakpointValue({ base: '90%', md: '50%' });
   const side = useBreakpointValue({ base: '30%', md: '40px' });
-
-  // This list contains all the data for carousels
-  // This can be static or loaded from a server
-  const cards = [
-    {
-      title: 'CS50G Course',
-      text:
-        "Learn more about this and that by taking a look at this premium project for free. Perfect for students and graduates!",
-      image:
-        'https://prod-discovery.edx-cdn.org/media/course/image/6f9e9524-61ec-4b7a-a02a-6708cab268b9-cd9b2f49ed7b.small.png',
-    },
-    {
-      title: 'CS50x Course',
-      text:
-        "Learn more about this and that by taking a look at this premium project for free. Perfect for students and graduates!",
-      image:
-        'https://pll.harvard.edu/sites/default/files/styles/header/public/course/CS50x_pll.png?itok=jeRsZsvB',
-    },
-    {
-      title: 'CS50s Course',
-      text:
-        "Learn more about this and that by taking a look at this premium project for free. Perfect for students and graduates!",
-      image:
-        'https://pll.harvard.edu/sites/default/files/styles/header/public/course/CS50S_pll.png?itok=CFDYCBl9',
-    },
-  ];
 
   return (
     <Box
@@ -117,7 +93,7 @@ export function Carousel() {
       {/* Slider */}
       <LightMode>
         <Slider {...settings} ref={(slider) => setSlider(slider)}>
-          {cards.map((card, index) => (
+          {props.cards.map((card, index) => (
             <Box
               key={index}
               height={'6xl'}
@@ -132,10 +108,8 @@ export function Carousel() {
                   spacing={6}
                   w={'full'}
                   maxW={'lg'}
-                  position="absolute"
-                  top="50%"
-                  left="-50%"
-                  transform="translate(0, -50%)"
+                  top='50%'
+                  transform='translateY(20%)'
                   backgroundColor="rgba(255,255,255,0.9)"
                   px="2rem"
                   py="2rem"
@@ -147,9 +121,11 @@ export function Carousel() {
                   <Text fontSize={{ base: 'md', lg: 'lg' }} color="GrayText">
                     {card.text}
                   </Text>
-                  <Button colorScheme="green" w="30%" size="sm" rightIcon={<MdOpenInNew />} alignSelf={'flex-end'}>
-                    View Course
-                  </Button>
+                  <Link as={RouterLink} to={card.link} isExternal alignSelf={'flex-end'} w='30%' zIndex='9999'>
+                    <Button colorScheme="green" size="sm" rightIcon={<MdOpenInNew />} >
+                      View Course
+                    </Button>
+                  </Link>
                 </Stack>
               </Container>
             </Box>

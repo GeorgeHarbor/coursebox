@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom/client';
 // ------------------------------------------
 import { Home } from './routes/home';
 import { SignUpPage } from './routes/sign_up';
-import { CoursePage } from './routes/course';
+import { CoursePage, loader as courseLoader } from './routes/course';
 import { SearchPage } from './routes/search';
 import { DashboardPage } from './routes/dashboard';
 import { MyCourses } from './components/Dashboard/MyCourses/MyCourses';
@@ -25,7 +25,7 @@ import {
   ChakraProvider,
   theme} from '@chakra-ui/react'
 import { ErrorPage } from './components/ErrorPage/ErrorPage';
-import { Index } from './components/Index/Index';
+import { Index, loader as indexLoader } from './components/Index/Index';
 import { Contact } from './components/Contact/Contact';
 
 
@@ -34,14 +34,17 @@ const router = createBrowserRouter([
     path:"/",
     element:<Home/>,
     errorElement: <ErrorPage/>,
+
     children:[
       {
         index: true,
-        element:<Index />
+        element:<Index />,
+        loader: indexLoader
       },
       {
-        path:"/course/:courseId?",
-        element:<CoursePage/>
+        path:"/course/:courseId",
+        element:<CoursePage/>,
+        loader: courseLoader
       },
       {
         path:"/search",

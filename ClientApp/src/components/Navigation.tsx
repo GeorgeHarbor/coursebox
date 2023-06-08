@@ -2,11 +2,12 @@ import { useBreakpointValue, Link, Box, Button, Flex, Input, InputGroup, InputRi
 import { MdExpandMore, MdMenu, MdSearch } from 'react-icons/md';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import Login from './Login';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Link as RouterLink, createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
 
 export const Navigation = () => {
+
     const [searchParams, setSearchParams] = useSearchParams();
 
     const navigate = useNavigate();

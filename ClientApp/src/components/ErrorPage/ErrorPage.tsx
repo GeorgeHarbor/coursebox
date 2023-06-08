@@ -1,9 +1,13 @@
 import { Box, Heading, Text, Button, Link } from '@chakra-ui/react';
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useRouteError } from "react-router-dom";
 import { Navigation } from '../Navigation';
 import { Footer } from '../Footer';
 
 export function ErrorPage() {
+
+  const error = useRouteError();
+  console.error(error);
+  
   return (
     <>
     <Navigation />
